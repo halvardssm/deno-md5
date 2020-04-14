@@ -1,6 +1,10 @@
+import { decode } from "https://deno.land/std/encoding/utf8.ts";
+
 /*
  * Ported from http://www.myersdaily.org/joseph/javascript/md5-text.html
  */
+
+type msgType = string | Uint8Array;
 
 const md5cycle = (x: number[], k: number[]): void => {
   let a = x[0], b = x[1], c = x[2], d = x[3];
@@ -203,8 +207,8 @@ let add32 = (a: number, b: number): number => {
   return (a + b) & 0xFFFFFFFF;
 };
 
-export const md5 = (s: string): string => {
-  if (hex(md51("hello")) != "5d41402abc4b2a76b9719d911017c592") {
+export const md5 = (s: string | Uint8Array): string => {
+  if (hex(md51("test")) != "098f6bcd4621d373cade4e832627b4f6") {
     add32 = (x: number, y: number): number => {
       var lsw = (x & 0xFFFF) + (y & 0xFFFF),
         msw = (x >> 16) + (y >> 16) + (lsw >> 16);
@@ -212,5 +216,9 @@ export const md5 = (s: string): string => {
     };
   }
 
-  return hex(md51(s));
+  if (s.constructor === Uint8Array) {
+    s = decode(s as Uint8Array);
+  }
+
+  return hex(md51(s as string));
 };

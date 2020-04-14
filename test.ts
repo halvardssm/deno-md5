@@ -1,8 +1,6 @@
 import { assertEquals } from "https://deno.land/std@v0.34.0/testing/asserts.ts";
 import { md5 } from "./mod.ts";
 
-const hash = md5("hi");
-
 const strings = [
   {
     string: "The quick brown fox jumps over the lazy dog",
@@ -25,3 +23,13 @@ strings.forEach(({ string, hash }) =>
     },
   })
 );
+
+// Tests with Uint8Array
+const uint8 = new Uint8Array([116, 101, 115, 116]);
+
+Deno.test({
+  name: "Uint8Array",
+  fn(): void {
+    assertEquals(md5(uint8), "098f6bcd4621d373cade4e832627b4f6");
+  },
+});
