@@ -7,7 +7,7 @@ An MD5 implementation for [deno](https://deno.land) ported from [Joseph Myers](h
 ## Usage
 
 ```js
-import { md5 } from "https://denopkg.com/halvardssm/deno-md5/mod.ts";
+import { md5 } from "https://deno.land/x/md5/mod.ts";
 
 const hash = md5("somePassword");
 ```
